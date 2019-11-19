@@ -1,6 +1,14 @@
 package class_loader;
+
 import class_loader.ImportClass;
+
 public class ClassInitTest {
+    static int a;
+
+    static {
+        a = 8;
+    }
+
     public static void main(String[] args) throws ClassNotFoundException {
         //只是引用不会初始化P
 //        P p;
@@ -18,22 +26,26 @@ public class ClassInitTest {
     }
 
 
-    static class T{
+    static class T {
 
-        public static  T t=new T();
-        public static int count=2;
-        private T(){
+        public static T t = new T();
+        public static int count = 2;
+
+        private T() {
             count++;
         }
     }
-    static class P{
-        static final int i=9;
-        static int j=8;
+
+    static class P {
+        static final int i = 9;
+        static int j = 8;
+
         static {
             System.out.println("P");
         }
     }
-    static class X extends P{
+
+    static class X extends P {
 
     }
 }
