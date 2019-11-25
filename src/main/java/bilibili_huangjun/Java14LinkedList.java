@@ -1,5 +1,7 @@
 package bilibili_huangjun;
 
+import com.alibaba.fastjson.JSONArray;
+
 import java.util.LinkedList;
 
 public class Java14LinkedList {
@@ -15,5 +17,6 @@ public class Java14LinkedList {
         list.toString();
         Byte [] bytes={null,null};
         System.out.println(list);
+        System.out.println(JSONArray.toJSONString(list));
     }
 }
