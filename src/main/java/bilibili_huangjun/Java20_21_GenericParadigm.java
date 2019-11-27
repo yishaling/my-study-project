@@ -6,7 +6,7 @@ import java.util.Map;
  * 泛型
  */
 
-public class Java20GenericParadigm<T> {
+public class Java20_21_GenericParadigm<T> {
     public static void main(String[] args) {
 
     }
