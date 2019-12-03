@@ -3,15 +3,24 @@ package bilibili_huangjun;
 public class Java31ObjectSyncCode {
     static int i = 1;
 
-     synchronized   void say() {
-       i++;
+    void say() {
+        synchronized (this) {
+            i++;
+        }
+
 
     }
+    synchronized void say2() {
+            i++;
+    }
 
-    public static void main(String[] args) throws  Exception{
-        new Java31ObjectSyncCode().m();
+    public static void main(String[] args) throws Exception {
+        for (int j = 0; j < 10; j++) {
+            new Java31ObjectSyncCode().m();
+        }
         Thread.sleep(2000);
         System.out.println(i);
+
     }
 
     void m() {
