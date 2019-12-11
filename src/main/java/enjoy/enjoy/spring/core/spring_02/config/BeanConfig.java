@@ -10,8 +10,15 @@ import org.springframework.context.annotation.Configuration;
 public class BeanConfig {
     @Bean
     @Conditional(WindowsCondition.class)
-    public UserController userController (){
+    public UserController userController() {
         System.out.println("bean:userController creating....");
-        return  new UserController();
+        return new UserController();
+    }
+
+    @Bean
+    @Conditional(WindowsCondition.class)
+    public MyFactoryBean myFactoryBean() {
+        System.out.println("bean:MyFactoryBean creating....");
+        return new MyFactoryBean();
     }
 }
