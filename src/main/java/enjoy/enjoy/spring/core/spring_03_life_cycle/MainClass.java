@@ -8,6 +8,10 @@ public class MainClass {
     public static void main(String[] args) {
         AnnotationConfigApplicationContext configApplicationContext=new AnnotationConfigApplicationContext(BeanConfig.class);
         System.out.println(configApplicationContext.getBean(MyBeanPostProcessor.class));
+        System.out.println(configApplicationContext.getBean("environment"));
+        System.out.println(configApplicationContext.getBean("systemEnvironment"));
+//        System.out.println(configApplicationContext.getBean("loadTimeWeaver"));
+//        System.out.println(configApplicationContext.getBean("conversionService"));
 //        configApplicationContext.close();
     }
 }
