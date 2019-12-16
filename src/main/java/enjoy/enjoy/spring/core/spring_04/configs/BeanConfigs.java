@@ -8,8 +8,15 @@ import org.springframework.context.annotation.*;
 @Import({AutoAndValueBean.class})
 @PropertySources({@PropertySource("test.properties")})
 public class BeanConfigs {
+
     @Bean
-    public PlaneBean Plane(){
+    public PlaneBean Plane() {
+        return new PlaneBean();
+    }
+
+    @Bean//("Plane_name")
+    @Primary
+    public PlaneBean Plane_name() {
         return new PlaneBean();
     }
 }
