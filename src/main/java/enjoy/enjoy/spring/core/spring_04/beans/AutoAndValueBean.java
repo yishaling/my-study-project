@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 
+import javax.annotation.Resource;
+
 public class AutoAndValueBean {
     @Value("1")
     private Integer age;
@@ -14,6 +16,9 @@ public class AutoAndValueBean {
     @Qualifier("Plane")
     @Autowired
     private PlaneBean planeBean;
+//    @Qualifier("Plane")
+//    @Resource
+//    private PlaneBean planeBean;
     public Integer getAge() {
         return age;
     }
