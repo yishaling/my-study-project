@@ -1,16 +1,40 @@
 package hero_test.hero_08_callback;
 
+import java.io.IOException;
+import java.util.function.Function;
+
 public class HeroMainClass {
 
     public static void main(String[] args) {
-        CallBackServer server=new CallBackServer();
-        UserEntity userEntity = new UserEntity();
-        server.save(userEntity,(userEntity2)->{
-            System.out.println(" 已调用回调");
-            System.out.println(userEntity2);
+        new Thread(new InputClass((bytes -> {
+            soutMsg(new String(bytes));
             return null;
-        });
-        System.out.println("Main-thread");
-    }
+        }))).start();
+        System.out.println("--------------已经准备完毕-----------");
 
+    }
+    public static class  InputClass implements Runnable{
+        Function<byte[], Object> function;
+        InputClass(){}
+        InputClass(Function<byte[], Object> function){
+            this.function=function;
+        }
+
+        @Override
+        public void run() {
+            for(;;){
+                try {
+                    byte[] bytes=new byte[1024];
+                    System.in.read(bytes);
+                    function.apply(bytes);
+//                    System.out.println("有输入");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    public static void soutMsg(String  input){
+        System.out.println("this time input :  "+input);
+    }
 }
