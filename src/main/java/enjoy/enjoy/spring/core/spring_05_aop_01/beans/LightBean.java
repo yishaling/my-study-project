@@ -5,8 +5,9 @@ import org.springframework.context.EmbeddedValueResolverAware;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringValueResolver;
 
+
 @Component
-public class Light implements BeanNameAware ,EmbeddedValueResolverAware{
+public class LightBean implements BeanNameAware ,EmbeddedValueResolverAware{
     @Override
     public void setBeanName(String name) {
 
@@ -16,5 +17,8 @@ public class Light implements BeanNameAware ,EmbeddedValueResolverAware{
     public void setEmbeddedValueResolver(StringValueResolver resolver) {
         String result=resolver.resolveStringValue("${os.name},#{3*5}");
         System.out.println(result);
+    }
+    public void method(){
+
     }
 }
