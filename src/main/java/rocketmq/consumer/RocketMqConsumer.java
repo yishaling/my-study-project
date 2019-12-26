@@ -28,6 +28,7 @@ public final class RocketMqConsumer {
             @Override
             public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs, ConsumeConcurrentlyContext context) {
                 for(MessageExt msg:msgs){
+                    msg.getStoreTimestamp();
                     System.out.println(new String(msg.getBody()));
                 }
                 return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;

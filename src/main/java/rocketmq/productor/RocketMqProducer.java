@@ -37,6 +37,8 @@ public final class RocketMqProducer {
         //创建消息体
         Message msg = new Message("hero_topic" /* Topic */, "TagA" /* Tag */, (msgInfo).getBytes(RemotingHelper.DEFAULT_CHARSET) /* Message body */
         );
+        //设置延迟时间
+        msg.setDelayTimeLevel(1);
         /**
          * 默认的是阻塞的
          * this.sendSelectImpl(msg, selector, arg, CommunicationMode.SYNC, null, timeout);
