@@ -7,10 +7,12 @@ public class MqMainClass {
     public static void main(String[] args) throws Exception {
        RocketMqProducer.startProducer();
         RocketMqConsumer.startConsumer();
-        for(;;){
-            byte [] msgs=new byte[1024];
-           System.in.read(msgs);
-            RocketMqProducer.sendMsg(new String(msgs));
+
+        for(int i=0;i<10000;++i){
+            Thread.sleep(1);
+            byte [] input=new byte[2048];
+            System.in.read(input);
+            RocketMqProducer.sendMsg("这是第【"+i+"】个消息：【"+new String(input)+"】");
         }
 
     }

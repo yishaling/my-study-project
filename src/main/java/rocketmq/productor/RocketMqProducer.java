@@ -3,10 +3,12 @@ package rocketmq.productor;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.MessageQueueSelector;
+import org.apache.rocketmq.client.producer.SendCallback;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.common.message.Message;
 import org.apache.rocketmq.common.message.MessageQueue;
 import org.apache.rocketmq.remoting.common.RemotingHelper;
+import rocketmq.common.RocketStaticConfig;
 
 import java.util.List;
 
@@ -15,8 +17,9 @@ public final class RocketMqProducer {
     static final DefaultMQProducer producer = new DefaultMQProducer("mq_hero_group");
 
     public static void startProducer() throws MQClientException {
-        producer.setNamesrvAddr("127.0.0.1:9876");
-        producer.setRetryTimesWhenSendAsyncFailed(5);
+        producer.setNamesrvAddr(RocketStaticConfig.NAME_SRV_ADDRESS);
+        //mq延时
+//        producer.setRetryTimesWhenSendAsyncFailed(5);
         producer.start();
     }
 
@@ -24,8 +27,18 @@ public final class RocketMqProducer {
         //创建消息体
         Message msg = new Message("hero_topic" /* Topic */, "TagA" /* Tag */, (msgInfo).getBytes(RemotingHelper.DEFAULT_CHARSET) /* Message body */
         );
-        //发送消息
-        SendResult sendResult = producer.send(msg);
+        msg.putUserProperty("i","5");
+        //异步发送消息（会做broker的轮训发送）
+       producer.send(msg,new SendCallback() {
+            @Override
+            public void onSuccess(SendResult sendResult) {
+            }
+
+            @Override
+            public void onException(Throwable e) {
+                System.out.println("onException");
+            }
+        });
     }
 
     /**
@@ -38,7 +51,7 @@ public final class RocketMqProducer {
         Message msg = new Message("hero_topic" /* Topic */, "TagA" /* Tag */, (msgInfo).getBytes(RemotingHelper.DEFAULT_CHARSET) /* Message body */
         );
         //设置延迟时间
-        msg.setDelayTimeLevel(1);
+//        msg.setDelayTimeLevel(1);
         /**
          * 默认的是阻塞的
          * this.sendSelectImpl(msg, selector, arg, CommunicationMode.SYNC, null, timeout);
