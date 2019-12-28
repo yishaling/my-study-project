@@ -12,18 +12,7 @@
     <groupId>com.mashibing.study</groupId>
     <artifactId>com.mashibing.study</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.rocketmq</groupId>
@@ -82,4 +71,79 @@
         </dependency>
 
 </dependencies>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+
+
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>config/*</include>
+                    <include>public/**</include>
+                    <include>static/**</include>
+                    <include>templates/**</include>
+                    <include>application.properties</include>
+                    <include>application-${environment}.properties</include>
+                    <!-- <include>application-dev.properties</include> -->
+                </includes>
+                <excludes>
+                    <exclude>config/mybatis-generator-config.xml</exclude>
+                    <exclude>static/**</exclude>
+                </excludes>
+            </resource>
+
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <!-- 不过滤下面列表 -->
+                <includes>
+                    <include>static/**</include>
+                </includes>
+            </resource>
+            <!--启动文件-->
+            <resource>
+                <directory>src/main/resources/sh</directory>
+                <filtering>true</filtering>
+                <targetPath>../</targetPath>
+            </resource>
+
+        </resources>
+    </build>
+    <profiles>
+        <profile>
+            <id>company</id>
+            <properties>
+                <environment>company</environment>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>home</id>
+            <properties>
+                <environment>home</environment>
+            </properties>
+        </profile>
+    </profiles>
 </project>
