@@ -13,19 +13,21 @@ import java.util.function.Function;
 public class OrderProducer {
     @Autowired
     RocketMQTemplate rocketMQTemplate;
-    public void sendAsyncMsg(String msg , Function<Object,SendResult> function){
+    public void sendAsyncMsg(String msg , Function<SendResult,Void> function){
         Message rocketMsg=new Message();
+        rocketMsg.setBody(msg.getBytes());
         // String destination, Message<?> message, SendCallback sendCallback
-        rocketMQTemplate.asyncSend("",rocketMsg,new SendCallback(){
+        rocketMQTemplate.asyncSend("order_cost:apply",rocketMsg,new SendCallback(){
 
             @Override
             public void onSuccess(SendResult sendResult) {
+                System.out.println(sendResult.getSendStatus());
                 function.apply(sendResult);
             }
 
             @Override
             public void onException(Throwable throwable) {
-
+                throwable.printStackTrace();
             }
         });
     }

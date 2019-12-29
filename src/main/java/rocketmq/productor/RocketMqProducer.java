@@ -27,11 +27,12 @@ public final class RocketMqProducer {
         //创建消息体
         Message msg = new Message("hero_topic" /* Topic */, "TagA" /* Tag */, (msgInfo).getBytes(RemotingHelper.DEFAULT_CHARSET) /* Message body */
         );
-        msg.putUserProperty("i","5");
+//        msg.putUserProperty("i","5");
         //异步发送消息（会做broker的轮训发送）
        producer.send(msg,new SendCallback() {
             @Override
             public void onSuccess(SendResult sendResult) {
+                System.out.println(sendResult.getSendStatus());
             }
 
             @Override

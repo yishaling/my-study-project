@@ -21,12 +21,12 @@ public final class RocketMqConsumer {
     public static void startConsumer() throws Exception {
         consumer.setNamesrvAddr(RocketStaticConfig.NAME_SRV_ADDRESS);
         // 订阅topic and  tag 过滤
-//        consumer.subscribe("hero_topic","TagA || TagC || TagD");
+        consumer.subscribe("hero_topic","TagA || TagC || TagD");
         // 从哪个消息开始读
         consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
         consumer.setMessageModel(MessageModel.BROADCASTING);
         consumer.setMessageModel(MessageModel.CLUSTERING);
-        consumer.subscribe("hero_topic", MessageSelector.bySql("i=5"));
+//        consumer.subscribe("hero_topic", MessageSelector.bySql("i=5"));
         consumer.registerMessageListener(
                 new MessageListenerConcurrently() {
             @Override
