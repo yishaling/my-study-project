@@ -16,7 +16,7 @@ public class OrderProducer {
     public void sendAsyncMsg(String msg , Function<SendResult,Void> function){
         Message rocketMsg=new Message();
         rocketMsg.setBody(msg.getBytes());
-        // String destination, Message<?> message, SendCallback sendCallback
+        //  destination-->topic:tag
         rocketMQTemplate.asyncSend("order_cost:apply",rocketMsg,new SendCallback(){
 
             @Override

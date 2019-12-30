@@ -19,7 +19,7 @@ public class RocketMQConfig {
     @ConditionalOnClass(DefaultMQProducer.class)
     @ConditionalOnMissingBean(DefaultMQProducer.class)
 //    @ConditionalOnProperty(prefix = "name-server",value = {"name-server","producer.group"})
-  public   DefaultMQProducer  defaultMQProducer(RocketMQProperties properties){
+  public   DefaultMQProducer  defaultMQProducer(){
         DefaultMQProducer defaultMQProducer=   new DefaultMQProducer();
         defaultMQProducer.setNamesrvAddr(nameServer);
         defaultMQProducer.setProducerGroup(producerGroup);
