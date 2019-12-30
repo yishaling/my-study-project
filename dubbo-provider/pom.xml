@@ -11,6 +11,13 @@
 
     <groupId>dubbo-provider</groupId>
     <artifactId>dubbo-provider</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>dubbo-interfaces</groupId>
+            <artifactId>dubbo-interfaces</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 
 </project>
