@@ -20,6 +20,10 @@ public final class RocketMqProducer {
         producer.setNamesrvAddr(RocketStaticConfig.NAME_SRV_ADDRESS);
         //mq延时
 //        producer.setRetryTimesWhenSendAsyncFailed(5);
+        //发送失败 去找另外的broker发送
+        producer.setRetryAnotherBrokerWhenNotStoreOK(true);
+        //
+//        producer.setCallbackExecutor();
         producer.start();
     }
 

@@ -7,7 +7,7 @@ public class MqMainClass {
     public static void main(String[] args) throws Exception {
        RocketMqProducer.startProducer();
         RocketMqConsumer.startConsumer();
-
+        Integer.valueOf("");
         for(int i=0;i<10000;++i){
             Thread.sleep(1);
             byte [] input=new byte[2048];
