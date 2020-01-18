@@ -9,7 +9,8 @@ public class ThreadPoolMainClass {
         long keepAliveTime=22;
         TimeUnit unit=TimeUnit.MILLISECONDS;
         BlockingQueue<Runnable> workQueue=new LinkedBlockingDeque<>();
-
+        CountDownLatch countDownLatch=new CountDownLatch(1);
+        countDownLatch.countDown();
         ThreadFactory threadFactory=new ThreadFactory() {
             @Override
             public Thread newThread(Runnable r) {

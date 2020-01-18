@@ -21,7 +21,7 @@ public final class RocketMqProducer {
         //mq延时
 //        producer.setRetryTimesWhenSendAsyncFailed(5);
         //发送失败 去找另外的broker发送
-        producer.setRetryAnotherBrokerWhenNotStoreOK(true);
+//        producer.setRetryAnotherBrokerWhenNotStoreOK(true);
         //
 //        producer.setCallbackExecutor();
         producer.start();
@@ -41,6 +41,7 @@ public final class RocketMqProducer {
 
             @Override
             public void onException(Throwable e) {
+                e.printStackTrace();
                 System.out.println("onException");
             }
         });

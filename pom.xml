@@ -8,6 +8,7 @@
         <module>dubbointerfaces</module>
         <module>dubbo-provider</module>
         <module>dubbo-consumer</module>
+        <module>starter</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
