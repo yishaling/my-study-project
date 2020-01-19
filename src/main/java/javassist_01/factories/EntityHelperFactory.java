@@ -1,5 +1,6 @@
 package javassist_01.factories;
 
+import hero_test.hero_08_callback.UserEntity;
 import javassist.*;
 import javassist_01.utils.AbstractEntityHelper;
 
@@ -10,7 +11,14 @@ import java.util.Map;
  * 创建每个实体对应的helper
  */
 public class EntityHelperFactory {
-    public AbstractEntityHelper getEntityHelper(Class clzz) throws Exception {
+    public static void main(String[] args) {
+        try {
+            EntityHelperFactory.getEntityHelper(UserEntity.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public static AbstractEntityHelper getEntityHelper(Class clzz) throws Exception {
         if(clzz==null){
             return null;
         }
@@ -27,7 +35,8 @@ public class EntityHelperFactory {
         String helperName=clzz.getName()+"_helper";
 
         // 生成一个字节码 相当于写一了一个 public class xxx extends xxx.xxx.AbstractEntityHelper{}
-        CtClass helperClass = classPool.makeClass(helperName);
+        // 让 xxx_helper extends  AbstractEntityHelper
+        CtClass helperClass = classPool.makeClass(helperName,ctClass);
         //生成构造器 public xxxEntity_helper(){}
         CtConstructor ctConstructor=new CtConstructor(new CtClass[0],helperClass);
         ctConstructor.setBody("{}");
@@ -39,6 +48,6 @@ public class EntityHelperFactory {
         CtMethod ctMethod=CtMethod.make(methodStrBuilder.toString(),helperClass);
         Class<?> heplerClassObject = helperClass.toClass();
 
-        return null;
+        return (AbstractEntityHelper) heplerClassObject.newInstance();
     }
 }
