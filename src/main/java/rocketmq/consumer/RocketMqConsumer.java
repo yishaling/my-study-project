@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public final class RocketMqConsumer {
 
-    private static final DefaultMQPushConsumer consumer=new DefaultMQPushConsumer("mq_hero_group");
+    private static final DefaultMQPushConsumer consumer=new DefaultMQPushConsumer("order-business-topic-local");
 
     public static void main(String[] args) {
         try {
@@ -29,7 +29,7 @@ public final class RocketMqConsumer {
     public static void startConsumer() throws Exception {
         consumer.setNamesrvAddr(RocketStaticConfig.NAME_SRV_ADDRESS);
         // 订阅topic and  tag 过滤
-        consumer.subscribe("hero_topic","TagA || TagC || TagD");
+        consumer.subscribe("order-business-topic-local","*");
         // 从哪个消息开始读
 //        consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
 //        consumer.setMessageModel(MessageModel.BROADCASTING);
@@ -43,10 +43,10 @@ public final class RocketMqConsumer {
                     msg.getStoreTimestamp();
                     System.out.println(new String(msg.getBody()));
                 }
-                if (true){
-                    throw new NullPointerException();
-                }
-                return ConsumeConcurrentlyStatus.RECONSUME_LATER;
+//                if (true){
+//                    throw new NullPointerException();
+//                }
+                return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
             }
         });
 //        consumer.registerMessageListener(

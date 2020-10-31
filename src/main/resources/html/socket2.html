@@ -1,0 +1,88 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+<div>发送消息</div>
+<div id="myId"></div>
+<input type="text" id="msgContent" />
+
+<input type="button" value="点我发送" onclick="CHAT.chat()" />
+
+<div>接收消息：</div>
+<div id="receiveMsg" style="background: gray;"></div>
+
+<script src="jquery.min.js"></script>
+<script type="application/javascript">
+    var myid=uuid();
+    window.CHAT = {
+        socket: null,
+        init: function() {
+
+            if (window.WebSocket){
+                CHAT.socket = new WebSocket("ws://127.0.0.1:8080/ws");
+
+                CHAT.socket.onopen = function() {
+                    console.log("onopen连接成功。。。");
+                },
+                    CHAT.socket.onclose = function() {
+                        console.log("onclose连接关闭。。。");
+
+                    },
+                    CHAT.socket.onerror = function() {
+                        console.log("onerror发生异常。。。");
+
+                    },
+                    CHAT.socket.onmessage = function(e) {
+                        var receiveMsg = document.getElementById("receiveMsg");
+                        var html = receiveMsg.innerHTML;
+                        var msg_ =JSON.parse(e.data);
+                        msg_=JSON.parse(msg_)
+                        console.log(msg_)
+                        if(msg_.id===myid){
+                            receiveMsg.innerHTML = html+"<br> 我说：" +msg_.msg;
+                        }else {
+                            receiveMsg.innerHTML = html+"<br> 别人说：" +msg_.msg;
+                        }
+                        console.log("onmessage接收到消息:"+e.data);
+
+
+
+                    }
+
+            }else{
+                alert("浏览器不支持websocket协议.....");
+            }
+        },
+        chat: function() {
+            var msg = document.getElementById("msgContent");
+            msg.value;
+            var userEntity={
+                id:myid,
+                msg: msg.value
+            }
+            CHAT.socket.send(JSON.stringify(userEntity));
+        }
+    }
+
+    CHAT.init();
+
+
+    function uuid() {
+        var s = [];
+        var hexDigits = "0123456789abcdef";
+        for (var i = 0; i < 36; i++) {
+            s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+        }
+        s[14] = "4"; // bits 12-15 of the time_hi_and_version field to 0010
+        s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1); // bits 6-7 of the clock_seq_hi_and_reserved to 01
+        s[8] = s[13] = s[18] = s[23] = "-";
+
+        var uuid = s.join("");
+        return uuid;
+    }
+</script>
+
+</body>
+</html>
