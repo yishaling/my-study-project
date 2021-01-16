@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 public class MyFactoryBean implements FactoryBean {
     @Override
     public Object getObject() throws Exception {
-        System.out.println("enjoy.enjoy.spring.core.spring_01.factory_beans.MyFactoryBean.getObject");
+        System.out.println("");
         return new MyBean();
     }
 
