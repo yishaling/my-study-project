@@ -1,5 +1,6 @@
 package rocketmq.productor;
 
+import com.alibaba.fastjson.JSONArray;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.MessageQueueSelector;
@@ -10,11 +11,12 @@ import org.apache.rocketmq.common.message.MessageQueue;
 import org.apache.rocketmq.remoting.common.RemotingHelper;
 import rocketmq.common.RocketStaticConfig;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public final class RocketMqProducer {
     // group 是为集群准备的
-    static final DefaultMQProducer producer = new DefaultMQProducer("mq_hero_group");
+    static final DefaultMQProducer producer = new DefaultMQProducer("refund-topic-local");
 
     public static void startProducer() throws MQClientException {
         producer.setNamesrvAddr(RocketStaticConfig.NAME_SRV_ADDRESS);
@@ -29,7 +31,11 @@ public final class RocketMqProducer {
 
     public static void sendMsg(String msgInfo) throws Exception {
         //创建消息体
-        Message msg = new Message("hero_topic" /* Topic */, "TagA" /* Tag */, (msgInfo).getBytes(RemotingHelper.DEFAULT_CHARSET) /* Message body */
+        PayRefundDto dto=new PayRefundDto();
+        List list=new ArrayList();
+        list.add(dto);
+        String s = JSONArray.toJSONString(list);
+        Message msg = new Message("wx-refund-topic-local" /* Topic */, "refund",(s).getBytes(RemotingHelper.DEFAULT_CHARSET) /* Message body */
         );
 //        msg.putUserProperty("i","5");
         //异步发送消息（会做broker的轮训发送）

@@ -16,7 +16,7 @@
         <version>2.2.2.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.mashibing.study</groupId>
+    <groupId>com.my.study</groupId>
     <artifactId>com.mashibing.study</artifactId>
     <version>1.0-SNAPSHOT</version>
 

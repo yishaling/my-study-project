@@ -18,7 +18,7 @@
     var ws = $.websocket({
         domain:"127.0.0.1",   //这是与服务器的域名或IP
         port:8080,                  //这是服务器端口号
-        protocol:"text",            //这东西可有可无,组合起来就是 ws://www.qhnovel.com:8080/test
+        protocol:"ws",            //这东西可有可无,组合起来就是 ws://www.qhnovel.com:8080/test
         onOpen:function(event){
             alert("已经与服务端握手,onOpen可省略不写");
         },
@@ -26,7 +26,7 @@
             alert("发生了错误,onError可省略不写");
         },
         onSend:function(msg){
-            alert("发送数据额外的代码,可省略不写");
+         console.log("已发送："+msg)
         },
         onMessage:function(result,nTime){
             alert("从服务端收到的数据:" + result);
@@ -36,7 +36,7 @@
     $(function () {
         $("#send").click(function () {
             var msg=$("#msg").val()
-            ws.send('say',msg);
+            ws.send(msg);
         })
 
     })
